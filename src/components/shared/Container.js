@@ -1,8 +1,8 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { StatusBar, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { secondary500, themeBlackWithOpacity, themeLight } from '../../datas/colors';
+import { bgWhite, secondary500, themeBlackWithOpacity, themeLight } from '../../datas/colors';
 import { fullHeight, fullWidth, isIos } from '../../datas/staticDatas';
 import { ArrowLeft } from 'phosphor-react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -18,13 +18,13 @@ const Header = (props) => {
         }
     }
     return (
-        <View style={styles.header}>
+        <View style={{ ...styles.header, paddingHorizontal: props.noph ? 24 : 0 }}>
             <TouchableOpacity onPress={handleBackPress}>
                 <ArrowLeft size={24} color={props.lightHeader ? themeLight : secondary500} />
             </TouchableOpacity>
             {
                 props.title &&
-                <View style={styles.titleFrame}>
+                <View style={{ ...styles.titleFrame, left: props.noph ? 24 : 0 }}>
                     <CustomText style={globalStyles.txt6_14_21_028} color={props.lightHeader ? themeLight : secondary500} text={props.title} />
                 </View>
             }
@@ -39,7 +39,7 @@ const Container = (props) => {
     const edges = [!props.ignoretop && 'top', !props.ignorebottom && 'bottom', 'left', 'right'];
     const customStyles = {
         justifyContent: props.center ? 'center' : props.end ? 'flex-end' : 'flex-start',
-        paddingBottom: props.pb || noBototmInsets ? 40 : 6,
+        paddingBottom: props.pb === 0 ? 0 : props.pb ? props.pb : noBototmInsets ? 40 : 6,
         paddingTop: !props.nopt && noTopInsets ? 10 : 0,
         rowGap: props.rg,
         ...!isIos && { minHeight: fullHeight }
@@ -51,10 +51,10 @@ const Container = (props) => {
             style={{
                 ...styles.container,
                 ...customStyles,
-                backgroundColor: props.backgroundColor || "#FCFCFD",
+                backgroundColor: props.backgroundColor || bgWhite,
                 paddingHorizontal: props.noph ? 0 : 24
             }}>
-            {(props.lightHeader || props.darkHeader) && <Header {...props} />}
+            {(props.title || props.lightHeader || props.darkHeader) && <Header {...props} />}
             {props.children}
             {props.isLoading && <FullSizeOverLay />}
         </SafeAreaView>

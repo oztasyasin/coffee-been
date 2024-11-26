@@ -1,14 +1,15 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { StatusBar, StyleSheet, Text, View } from 'react-native'
+import React, { useRef } from 'react'
+import Container from '../../../components/shared/Container'
+import TopupFrom from '../../../forms/pay/TopupFrom'
 
 const TopUp = () => {
     return (
-        <View>
-            <Text>TopUp</Text>
-        </View>
+        <Container title={"Top Up"}>
+            <StatusBar backgroundColor={'transparent'} barStyle={'dark-content'} />
+            <TopupFrom/>
+        </Container>
     )
 }
 
 export default TopUp
-
-const styles = StyleSheet.create({})

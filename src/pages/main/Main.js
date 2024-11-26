@@ -6,6 +6,7 @@ import CustomTabBar from '../../components/shared/CustomTabBar';
 import Coffee from './Coffee';
 import Reward from './Reward';
 import Profile from './Profile';
+import NotificationBar from '../../components/shared/notify';
 const MainTab = createBottomTabNavigator();
 const mainTabsRoutes = [
     {
@@ -31,16 +32,18 @@ const mainTabsRoutes = [
 ]
 const Main = () => {
     return (
-        <MainTab.Navigator
-            screenOptions={{
-                headerShown: false
+        <>
+            <MainTab.Navigator
+                screenOptions={{
+                    headerShown: false
+                }}
+                initialRouteName='Home'
+                tabBar={(props) => <CustomTabBar {...props} />}
+            >
+                {mainTabsRoutes.map((tab) => <MainTab.Screen {...tab} />)}
+            </MainTab.Navigator>
+        </>
 
-            }}
-            initialRouteName='Home'
-            tabBar={(props) => <CustomTabBar {...props} />}
-        >
-            {mainTabsRoutes.map((tab) => <MainTab.Screen {...tab} />)}
-        </MainTab.Navigator>
     )
 }
 

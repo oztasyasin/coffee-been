@@ -11,7 +11,8 @@ const FormContainer = (props) => {
                     ...styles.formArea,
                     justifyContent: props.end ? 'flex-end' : props.split ? 'space-between' : 'flex-start',
                     paddingHorizontal: props.ph,
-                    rowGap: props.rowGap || 12
+                    rowGap: props.rowGap || 12,
+                    ...props.style
                 }}
                 keyboardVerticalOffset={isIos ? 16 : 32}
                 behavior={isIos ? 'padding' : 'height'}

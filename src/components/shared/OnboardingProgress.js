@@ -16,7 +16,8 @@ export default OnboardingProgress
 const styles = StyleSheet.create({
     frame: {
         flexDirection: 'row',
-        columnGap: 13.77
+        columnGap: 13.77,
+        marginBottom:46
     },
     steps: {
         flex: 1,

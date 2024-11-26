@@ -1,18 +1,20 @@
-import { Animated, StyleSheet, Text, TextInput, View } from 'react-native'
-import React, { useEffect, useRef, useState } from 'react'
-import CustomText from '../CustomText'
-import { globalStyles } from '../../../styles/globalStyles'
-import { secondary100, secondary500, seconDaryText, primary500, themeRed } from '../../../datas/colors'
-import { Controller } from 'react-hook-form'
-import { isEmpty } from '../../../helper'
+import { Animated, StyleSheet, TextInput, View } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import CustomText from '../CustomText';
+import { globalStyles } from '../../../styles/globalStyles';
+import { secondary100, secondary500, primary500, themeRed, secondary300 } from '../../../datas/colors';
+import { Controller } from 'react-hook-form';
+import { isEmpty } from '../../../helper';
+import { fullWidth } from '../../../datas/staticDatas';
 
-export const TextField = ({ control, name, rules, placeholder, error }) => (
+export const TextField = ({ control, name, rules, placeholder, error, style }) => (
     <Controller
         rules={rules}
         name={name}
         control={control}
-        render={({ field: { onChange, onBlur, value } }) => (
+        render={({ field: { onChange, value } }) => (
             <CustomInput
+                style={style}
                 error={error}
                 secureTextEntry={name?.includes('password')}
                 placeholder={placeholder}
@@ -21,89 +23,109 @@ export const TextField = ({ control, name, rules, placeholder, error }) => (
             />
         )}
     />
-)
+);
 
-const CustomInput = (props) => {
+const CustomInput = ({ error, placeholder, value, onChangeText, secureTextEntry, style }) => {
     const left = useState(new Animated.Value(-150))[0];
+    const right = useState(new Animated.Value(-fullWidth))[0];
     const frameRef = useRef();
+    const inputRef = useRef();
+
+    const updateFrameStyle = (borderColor) => {
+        frameRef.current.setNativeProps({
+            style: {
+                ...styles.inputFrame,
+                borderColor
+            },
+        });
+    };
+
     const handleFocus = () => {
-        frameRef.current.setNativeProps({
-            style: {
-                ...styles.inputFrame,
-                borderColor: props?.error ? themeRed : primary500
-            }
-        })
-    }
+        changeLabelLeft(16);
+        updateFrameStyle(error ? themeRed : primary500);
+        changePlaceholder(true);
+    };
+
     const handleBlur = () => {
-        frameRef.current.setNativeProps({
-            style: {
-                ...styles.inputFrame,
-                borderColor: props?.error ? themeRed : secondary100
-            }
-        })
-    }
-    const showSmallText = (e) => {
-        if (isEmpty(e)) {
-            const toValue = -150;
-            Animated.timing(left, {
-                toValue,
-                duration: 300,
-                useNativeDriver: false,
-            }).start();
+        if (isEmpty(value)) {
+            changeLabelLeft(-150);
         }
-        else if (e.length === 1) {
-            const toValue = 16;
-            Animated.timing(left, {
-                toValue,
-                duration: 300,
-                useNativeDriver: false,
-            }).start();
-        }
-    }
+        updateFrameStyle(error ? themeRed : secondary100);
+        changePlaceholder(!isEmpty(value));
+    };
+
+    const changePlaceholder = (hide) => {
+        inputRef.current.setNativeProps({
+            placeholder: hide ? null : placeholder
+        });
+    };
+
+    const changeLabelLeft = (value) => {
+        Animated.timing(left, {
+            toValue: value,
+            duration: 300,
+            useNativeDriver: false,
+        }).start();
+    };
+
+    const changeErrorRight = (value) => {
+        Animated.timing(right, {
+            toValue: value,
+            duration: 300,
+            useNativeDriver: false,
+        }).start();
+    };
+
     useEffect(() => {
-        showSmallText(props.value)
-    }, [props.value])
+        if (value?.length === 1) changeLabelLeft(16);
+    }, [value]);
+
+    useEffect(() => {
+        isEmpty(error?.message) ? changeErrorRight(-fullWidth) : changeErrorRight(12);
+    }, [error]);
 
     return (
-        <View ref={frameRef} style={{ ...styles.inputFrame, ...props?.error && { borderColor: themeRed } }}>
-            <Animated.View style={{ ...styles.placeholder, left: left }}>
-                <CustomText style={globalStyles.txt4_10_12_012} color={secondary500} text={props.placeholder} />
+        <View ref={frameRef} style={{ ...styles.inputFrame, borderColor: error ? themeRed : secondary100, ...style }}>
+            <Animated.View style={{ ...styles.placeholder, left }}>
+                <CustomText style={globalStyles.txt4_10_12_012} color={secondary500} text={placeholder} />
             </Animated.View>
             <TextInput
-                placeholder={props.placeholder}
+                ref={inputRef}
+                placeholder={placeholder}
+                placeholderTextColor={secondary300}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
                 textContentType='oneTimeCode'
                 autoCompleteType="off"
                 autoCorrect={false}
-                value={props.value}
-                onChangeText={props.onChangeText}
-                secureTextEntry={props.secureTextEntry}
+                value={value}
+                onChangeText={onChangeText}
+                secureTextEntry={secureTextEntry}
                 style={styles.input}
             />
-            <CustomText style={{ ...globalStyles.txt4_10_12_012, ...styles.errorLine }} color={themeRed} text={props?.error?.message} />
+            {error && (
+                <Animated.View style={{ ...styles.errorLine, right }}>
+                    <CustomText style={globalStyles.txt4_10_12_012} color={themeRed} text={error.message} />
+                </Animated.View>
+            )}
         </View>
-    )
-}
+    );
+};
 
-export default CustomInput
+export default CustomInput;
 
 const styles = StyleSheet.create({
     errorLine: {
         position: 'absolute',
         bottom: 2,
-        right: 10
-    },
-    container: {
-        rowGap: 12,
-        width: '100%',
+        right: 10,
     },
     input: {
         flex: 1,
         height: '100%',
         fontFamily: 'Urbanist_400Regular',
         letterSpacing: 0.7,
-        fontSize: 16
+        fontSize: 16,
     },
     inputFrame: {
         width: '100%',
@@ -115,7 +137,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: secondary100,
         overflow: 'hidden',
-        backgroundColor: 'rgba(0,0,0,0.01)'
+        backgroundColor: 'rgba(0,0,0,0.01)',
     },
     placeholder: {
         position: 'absolute',
@@ -125,4 +147,4 @@ const styles = StyleSheet.create({
         textTransform: 'uppercase',
         top: 4,
     },
-})
+});

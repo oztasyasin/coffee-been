@@ -1,15 +1,15 @@
 import { Animated, View, TouchableOpacity, StyleSheet } from 'react-native';
 import { globalStyles } from '../../styles/globalStyles';
-import { primary500, secondary300 } from '../../datas/colors';
+import { primary500, secondary100, secondary300 } from '../../datas/colors';
 import { fullWidth } from '../../datas/staticDatas';
 
 function CustomHorizontalBar({ state, descriptors, navigation, position }) {
     return (
         <>
-            <View style={{ zIndex: -1, height: 56 }}>
+            <View style={{ zIndex: -1, height: 57 }}>
 
             </View>
-            <View style={{ flexDirection: 'row', position: 'absolute', top: 0 }}>
+            <View style={{ flexDirection: 'row', position: 'absolute', top: 0, width: fullWidth - 48, left: 24 }}>
                 {state.routes.map((route, index) => {
                     const { options } = descriptors[route.key];
                     const label =
@@ -63,22 +63,24 @@ function CustomHorizontalBar({ state, descriptors, navigation, position }) {
                         </TouchableOpacity>
                     );
                 })}
-                <Animated.View
-                    style={[
-                        styles.selectionIndicator,
-                        {
-                            transform: [
-                                {
-                                    translateX: position.interpolate({
-                                        inputRange: state.routes.map((_, i) => i),
-                                        outputRange: state.routes.map((_, i) => i !== 0 ? (fullWidth - 48) / 2 : 0)
-                                    })
-                                }
-                            ],
-                            width: (fullWidth - 48) / 2,
-                        },
-                    ]}
-                />
+                <View style={styles.indicatorFrame}>
+                    <Animated.View
+                        style={[
+                            styles.selectionIndicator,
+                            {
+                                transform: [
+                                    {
+                                        translateX: position.interpolate({
+                                            inputRange: state.routes.map((_, i) => i),
+                                            outputRange: state.routes.map((_, i) => i !== 0 ? (fullWidth - 48) / 2 : 0)
+                                        })
+                                    }
+                                ],
+                                width: (fullWidth - 48) / 2,
+                            },
+                        ]}
+                    />
+                </View>
             </View>
         </>
 
@@ -88,6 +90,13 @@ function CustomHorizontalBar({ state, descriptors, navigation, position }) {
 export default CustomHorizontalBar;
 
 const styles = StyleSheet.create({
+    indicatorFrame: {
+        position: 'absolute',
+        bottom: 0,
+        width: '100%',
+        height: 1,
+        backgroundColor: secondary100,
+    },
     selectionIndicator: {
         position: 'absolute',
         bottom: 0,

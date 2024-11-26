@@ -15,11 +15,13 @@ export const seconDaryText = "#B8B8B8";
 export const primary300 = "#66DF9C";
 export const primary400 = "#3EBF84";
 export const primary500 = "#0F9565";
+export const primary700 = "#076B5B";
 export const secondary100 = "#F3F3F3";
 export const secondary200 = "#E7E7E7";
 export const secondary300 = "#B8B8B8";
 export const secondary400 = "#717171";
 export const secondary500 = "#131313";
+export const bgWhite = "#FCFCFD";
 
 
 

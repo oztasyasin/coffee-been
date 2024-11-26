@@ -1,25 +1,33 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import React, { useRef } from 'react'
+import { ScrollView, StyleSheet } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
 
 const TabContainer = ({ children, handleScroll, gap }) => {
-    const lastScrollY = useRef(0); // Önceki kaydırma pozisyonunu takip eder
-
+    const viewFlagRef = useRef(false);
+    const isAvailable = useRef(true);
+    const lockfunc = () => {
+        isAvailable.current = false
+        setTimeout(() => isAvailable.current = true, 500);
+    }
     const scrollEvent = (event) => {
-        const currentScrollY = event.nativeEvent.contentOffset.y;
-
-        if (currentScrollY > 0 && lastScrollY.current <= 0) {
-            handleScroll(true);
-        } else if (currentScrollY <= 0 && lastScrollY.current > 0) {
-            handleScroll(false);
+        if (isAvailable?.current) {
+            const currentScrollY = event.nativeEvent.contentOffset.y;
+            if (currentScrollY >= 150 && !viewFlagRef.current) {
+                handleScroll(true);
+                viewFlagRef.current = true;
+                lockfunc();
+            } else if (currentScrollY == 0 && viewFlagRef.current) {
+                handleScroll(false);
+                viewFlagRef.current = false;
+                lockfunc();
+            }
         }
-
-        lastScrollY.current = currentScrollY;
     };
     return (
         <ScrollView
             onScroll={scrollEvent}
+            bounces={false}
             showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ rowGap: gap }}
+            contentContainerStyle={{ rowGap: gap, paddingHorizontal: 24 }}
             style={styles.frame}>
             {children}
         </ScrollView>

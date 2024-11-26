@@ -23,11 +23,18 @@ const validationSchema = yup.object().shape({
     "password": yup.string().required(),
     "rememberme": yup.bool()
 });
+const defaultValues = {
+    "email": null,
+    "password": null,
+    "rememberme": null
+}
 const LoginForm = ({ navigation, submit }) => {
     const { navigate } = navigation;
-    const { control, handleSubmit, setValue, watch, formState: { errors } } = useForm({
+    const { control, handleSubmit, setValue, watch, reset, formState: { errors } } = useForm({
         resolver: yupResolver(validationSchema),
+        defaultValues: defaultValues
     });
+    const resetForm = () => reset(defaultValues);
     const { rememberme } = watch();
     return (
         <>

@@ -12,6 +12,7 @@ import ProfilePhotosRow from '../../../components/shared/ProfilePhotosRow';
 import { peopleImage } from '../../../datas/staticDatas';
 
 const CoverPlace = ({ navigation, route }) => {
+   
     const { cafe } = route?.params;
     return (
         <Container lightHeader>

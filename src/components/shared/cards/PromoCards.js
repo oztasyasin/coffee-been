@@ -8,7 +8,6 @@ import { globalStyles } from '../../../styles/globalStyles'
 import CustomText from '../CustomText'
 
 const PromoCards = (props) => {
-    console.log(props.remain);
     return (
         <View style={styles.frame}>
             <Image

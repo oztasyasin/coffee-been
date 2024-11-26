@@ -1,12 +1,13 @@
 import { StyleSheet } from "react-native";
 import { fontMap } from "../helper";
-export const fontStyler = (fontWeight, fontSize, lineHeight, letterSpacing, fontFamily = "Urbanist") => {
+export const fontStyler = (fontWeight, fontSize, lineHeight, letterSpacing, fontFamily = "Urbanist", color) => {
     return {
         fontSize: fontSize,
         fontFamily: fontMap[`${fontFamily}_${fontWeight}`],
         fontWeight: `${fontWeight}`,
         lineHeight: lineHeight,
         letterSpacing: letterSpacing,
+        color: color
     }
 }
 export const globalStyles = StyleSheet.create({
@@ -16,6 +17,9 @@ export const globalStyles = StyleSheet.create({
     },
     txt6_14_21_028: {
         ...fontStyler(600, 14, 21, -0.28, "Jakarta"),
+    },
+    txt6_20_30_04: {
+        ...fontStyler(600, 20, 30, -0.4, "Jakarta"),
     },
     txt6_14_21_028: {
         ...fontStyler(600, 14, 21, -0.28, "Jakarta"),
@@ -35,6 +39,9 @@ export const globalStyles = StyleSheet.create({
     txt5_14_21_028: {
         ...fontStyler(500, 14, 21, -0.28, "Jakarta"),
     },
+    txt5_16_24_032: {
+        ...fontStyler(500, 16, 24, -0.32, "Jakarta"),
+    },
     txt5_18_27_036: {
         ...fontStyler(500, 18, 27, -0.36, "Jakarta"),
     },
@@ -43,6 +50,9 @@ export const globalStyles = StyleSheet.create({
     },
     txt4_12_192_012: {
         ...fontStyler(400, 12, 19.2, -0.12)
+    },
+    txt4_12_216_012: {
+        ...fontStyler(400, 12, 21.6, -0.12)
     },
     txt4_12_norm_012: {
         ...fontStyler(400, 12, null, -0.12)

@@ -74,11 +74,11 @@ const promoCopy = [...promoData];
 export const promoGroups = [
     {
         title: "Hottest Promo",
-        promos: promoData.slice(0, 2)
+        data: promoData.slice(0, 2)
     },
     {
         title: "Recomendation Promo",
-        promos: [...promoCopy.reverse()]
+        data: [...promoCopy.reverse()]
     }
 ]
 export const languages = [
@@ -223,4 +223,122 @@ export const commetsData = [
         date: "20 July 2022",
         comment: "We are very happy with the services of the Coffee Shop Application. Coffee Shop"
     },
+]
+export const shop = [
+    {
+        id: 0,
+        name: "Ice Americano",
+        image: "https://images.unsplash.com/photo-1531835207745-506a1bc035d8?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8aWNlJTIwYW1lcmljYW5vfGVufDB8MXwwfHx8Mg%3D%3D",
+        price: 100,
+        categoyId: 1,
+    },
+    {
+        id: 1,
+        name: "Ice Latte",
+        image: "https://images.unsplash.com/photo-1527156231393-7023794f363c?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGljZSUyMGxhdHRlfGVufDB8MXwwfHx8Mg%3D%3D",
+        price: 120,
+    },
+    {
+        id: 4,
+        name: "Ice FLat White",
+        image: "https://images.unsplash.com/photo-1620360290038-71942f99fa96?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjV8fGZyYXBwZXxlbnwwfDF8MHx8fDI%3D",
+        price: 127,
+    },
+    {
+        id: 2,
+        name: "Ice Mocha",
+        image: "https://images.unsplash.com/photo-1642647392502-dcc287d39b74?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fGljZSUyMG1vY2hhfGVufDB8MXwwfHx8Mg%3D%3D",
+        price: 135,
+    },
+    {
+        id: 3,
+        name: "Affogato",
+        image: "https://images.unsplash.com/photo-1594631661960-34762327295a?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGFmZm9nYXRvfGVufDB8MXwwfHx8Mg%3D%3D",
+        price: 140
+    },
+    {
+        id: 5,
+        name: "Milkshake",
+        image: "https://images.unsplash.com/photo-1577805947697-89e18249d767?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fG1pbGtzaGFrZXxlbnwwfDF8MHx8fDI%3D",
+        price: 160
+    }
+]
+
+export const nominalTopUps = [
+    {
+        key: 0,
+        id: 0,
+        price: 50,
+    },
+    {
+        id: 1,
+        key: 1,
+        price: 100,
+    },
+    {
+        id: 2,
+        key: 2,
+        price: 200,
+    },
+    {
+        id: 3,
+        key: 3,
+        price: 250,
+    }
+]
+
+export const historyData = [
+    {
+        id: 0,
+        isIncome: true,
+        type: "Top Up",
+        price: 700,
+        description: "Congratulations, you have successfully made a top up of",
+        date: "22 August 2022, 04:00 PM"
+    },
+    {
+        id: 1,
+        isIncome: false,
+        type: "Buy Coffee",
+        price: 120,
+        description: "Congratulations, you have successfully made a coffee purchase",
+        date: "22 August 2022, 10:00 AM"
+    },
+    {
+        id: 2,
+        isIncome: false,
+        type: "Milkshake",
+        price: 130,
+        description: "Congratulations, you have successfully made a top up of",
+        date: "17 August 2022, 08:00 AM"
+    },
+    {
+        id: 3,
+        isIncome: false,
+        type: "Caffee Meetings",
+        price: 420,
+        description: "Congratulations, you have successfully made a top up of",
+        date: "17 August 2022, 08:00 AM"
+    },
+    {
+        id: 4,
+        isIncome: true,
+        type: "Top Up",
+        price: 1000,
+        description: "Congratulations, you have successfully made a top up of",
+        date: "12 August 2022, 07:00 AM"
+    },
+]
+
+export const historyGroups = [
+    {
+        id: 0,
+        title: "Recent activity",
+        data: historyData.slice(0, 2)
+    },
+    {
+        id: 1,
+        title: "Last Week",
+        data: historyData.slice(2)
+    }
 ]

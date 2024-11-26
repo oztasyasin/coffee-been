@@ -26,12 +26,35 @@ export const isEmpty = (data) => {
     return data == null || data === "" || data == NaN || data?.length == 0 || data === false
 }
 
-export const getAdaptedHeight = (height) => {
+export const getAdaptedHeight = (height, ignoremin) => {
     const result = (fullHeight * height) / baseHeight;
-    return result < height ? height : result;
+    return ignoremin ? result : result < height ? height : result;
 }
 
 export const getAdaptedWidth = (width) => {
     const result = (fullWidth * width) / baseWidht;
     return result;
+}
+
+export const formatPrice = (price) => {
+    return new Intl.NumberFormat('tr-TR', {
+        style: 'currency',
+        currency: 'TRY',
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+    }).format(price);
+};
+
+export const formatDate = (dateStr) => {
+    if (!dateStr) {
+        return ""
+    }
+    const date = new Date(dateStr);
+    const formattedDate = new Intl.DateTimeFormat('en-EN', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric'
+    }).format(date);
+
+    return formattedDate;
 }

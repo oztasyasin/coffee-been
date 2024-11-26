@@ -6,6 +6,7 @@ import Register2 from "../pages/auth/register/Register2";
 import Register3 from "../pages/auth/register/Register3";
 import Register4 from "../pages/auth/register/Register4";
 import Register5 from "../pages/auth/register/Register5";
+import Booking from "../pages/main/Home/Booking";
 import CoverPlace from "../pages/main/Home/CoverPlace";
 import History from "../pages/main/Home/History";
 import Pay from "../pages/main/Home/Pay";
@@ -13,6 +14,7 @@ import PlaceDetail from "../pages/main/Home/PlaceDetail";
 import Promo from "../pages/main/Home/Promo";
 import TopUp from "../pages/main/Home/TopUp";
 import Main from "../pages/main/Main";
+import Onboarding from "../pages/onboarding";
 import Onboarding1 from "../pages/onboarding/Onboarding1";
 import Onboarding2 from "../pages/onboarding/Onboarding2";
 import Onboarding3 from "../pages/onboarding/Onboarding3";
@@ -21,7 +23,7 @@ export const routes = [
     {
         key: 0,
         name: "/onboarding1",
-        component: Onboarding1,
+        component: Onboarding,
         options: {
             gestureEnabled: false
         },
@@ -167,6 +169,14 @@ export const routes = [
         key: 17,
         name: "/placeDetail",
         component: PlaceDetail,
+        options: {
+            gestureEnabled: true
+        },
+    },
+    {
+        key: 18,
+        name: "/booking",
+        component: Booking,
         options: {
             gestureEnabled: true
         },
