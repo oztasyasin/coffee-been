@@ -27,6 +27,7 @@ const NotificationBar = () => {
         onEnd: (event) => {
             const velocity = Math.abs(event.velocityY);
             if (velocity > swipeThreshold) {
+                
                 translateY.value = withTiming(event.velocityY > 0 ? 1000 : -1000, { duration: 300 });
                 opacity.value = withTiming(0, { duration: 300 });
             } else {
